@@ -51,9 +51,9 @@
 - name: create spark-cluster service
   block:
     - template:
-      src: service.yaml.j2
-      dest: service.yaml
-      mode: 0644
+        src: service.yaml.j2
+        dest: service.yaml
+        mode: 0644
     - k8s:
         state: present
         kind: Service
