@@ -8,4 +8,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: spark-operator
-    namespace: dday2019
+    namespace: tutorial
