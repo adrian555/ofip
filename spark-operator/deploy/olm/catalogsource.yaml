@@ -7,5 +7,5 @@ spec:
   sourceType: grpc
   image: dsml4real/spark-operator-registry:v0.0.1
   imagePullPolicy: Always
-  displayName: DeveloperDay Operators
+  displayName: Tutorial Operators
   publisher: IBM
