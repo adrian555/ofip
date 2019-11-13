@@ -6,7 +6,7 @@ metadata:
     capabilities: Basic Install
     categories: "AI/Machine Learning"
     description: "Apache Spark"
-    containerImage: adrian555/spark-operator:v0.0.1
+    containerImage: dsml4real/spark-operator:v0.0.1
     support: IBM
     certified: "false"
     createdAt: 2019-10-03T08:00:00Z
@@ -59,7 +59,7 @@ spec:
                 - /usr/local/bin/ao-logs
                 - /tmp/ansible-operator/runner
                 - stdout
-                image: adrian555/spark-operator:v0.0.1
+                image: dsml4real/spark-operator:v0.0.1
                 imagePullPolicy: Always
                 name: ansible
                 resources: {}
@@ -78,7 +78,7 @@ spec:
                       fieldPath: metadata.name
                 - name: OPERATOR_NAME
                   value: spark-operator
-                image: adrian555/spark-operator:v0.0.1
+                image: dsml4real/spark-operator:v0.0.1
                 imagePullPolicy: Always
                 name: operator
                 resources: {}

@@ -20,7 +20,7 @@ spec:
           value: slave
         - name: SPARK_MASTER
           value: spark://{{ spark_cluster_name }}:7077
-        image: adrian555/spark:v2.4.4
+        image: dsml4real/spark:v2.4.4
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 6

@@ -11,4 +11,5 @@ spec:
   pv_name: pv0001
   pv_path: /data/pv0001
   nfs_server: 10.16.3.220
+  nfs_storage_class: nfs-client
   
