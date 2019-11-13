@@ -1,0 +1,7 @@
+apiVersion: ibm.com/v1alpha1
+kind: Spark
+metadata:
+  name: example-spark
+spec:
+  # Add fields here
+  size: 3
