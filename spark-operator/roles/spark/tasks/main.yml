@@ -36,6 +36,7 @@
     - k8s:
         state: present
         src: pvc.yaml
+        namespace: "{{ namespace }}"
     - template:
         src: worker.pvc.yaml.j2
         dest: worker.yaml
