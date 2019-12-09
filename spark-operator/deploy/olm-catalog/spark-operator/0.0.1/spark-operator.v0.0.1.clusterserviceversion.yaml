@@ -1,0 +1,89 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: '[{"annotations":{"ansible.operator-sdk/reconcile-period":"10m"},"apiVersion":"ibm.com/v1alpha1","kind":"Spark","metadata":{"name":"demo-spark"},"spec":{"worker_size":1}},{"annotations":{"ansible.operator-sdk/reconcile-period":"10m"},"apiVersion":"ibm.com/v1alpha1","kind":"Spark","metadata":{"name":"example-spark"},"spec":{"nfs_server":"10.16.3.220","nfs_storage_class":"nfs-client","pv_name":"pv0001","pv_path":"/data/pv0001","worker_size":1}}]'
+    capabilities: Basic Install
+  name: spark-operator.v0.0.1
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions: {}
+  description: Placeholder description
+  displayName: Spark Operator
+  install:
+    spec:
+      clusterPermissions:
+      - rules:
+        - apiGroups:
+          - '*'
+          resources:
+          - '*'
+          verbs:
+          - '*'
+        - nonResourceURLs:
+          - '*'
+          verbs:
+          - '*'
+        serviceAccountName: spark-operator
+      deployments:
+      - name: spark-operator
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              name: spark-operator
+          strategy: {}
+          template:
+            metadata:
+              labels:
+                name: spark-operator
+            spec:
+              containers:
+              - command:
+                - /usr/local/bin/ao-logs
+                - /tmp/ansible-operator/runner
+                - stdout
+                image: dsml4real/spark-operator:v0.0.1
+                imagePullPolicy: Always
+                name: ansible
+                resources: {}
+                volumeMounts:
+                - mountPath: /tmp/ansible-operator/runner
+                  name: runner
+                  readOnly: true
+              - env:
+                - name: WATCH_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.annotations['olm.targetNamespaces']
+                - name: POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: OPERATOR_NAME
+                  value: spark-operator
+                image: dsml4real/spark-operator:v0.0.1
+                imagePullPolicy: Always
+                name: operator
+                resources: {}
+                volumeMounts:
+                - mountPath: /tmp/ansible-operator/runner
+                  name: runner
+              serviceAccountName: spark-operator
+              volumes:
+              - emptyDir: {}
+                name: runner
+    strategy: deployment
+  installModes:
+  - supported: true
+    type: OwnNamespace
+  - supported: true
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  maturity: alpha
+  provider: {}
+  version: 0.0.1
